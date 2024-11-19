@@ -1,18 +1,26 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import { NgModule } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { ResultsDisplayComponent } from './results-display/results-display.component';
+import { AwsS3Service } from './aws-s3.service';
+import { SageMakerService } from './sagemaker.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FileUploadComponent,
+    ResultsDisplayComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+    BrowserModule
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(),
+    AwsS3Service,
+    SageMakerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

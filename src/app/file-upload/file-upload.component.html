@@ -1,0 +1,12 @@
+<h2>Upload Athlete Data</h2>
+<form (submit)="onSubmit()">
+  <div class="upload-container">
+    <div *ngFor="let fileType of fileTypes">
+      <label>{{ fileType }}:</label>
+      <input type="file" (change)="onFileChange($event, fileType)" />
+    </div>
+  </div>
+  <button type="submit">Upload Data</button>
+</form>
+
+<button (click)="invokeSageMaker()">Invoke SageMaker</button>
