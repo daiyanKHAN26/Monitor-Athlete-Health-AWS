@@ -35,7 +35,7 @@ export class FileUploadComponent {
   onSubmit() {
     for (const [fileType, file] of Object.entries(this.uploadedFiles)) {
       if (file) {
-        const bucketName = fileType.endsWith('.json') ? 'incomingfitbit' : 'incomingwellness';
+        const bucketName = 'incomingplayerdata';
         this.s3Service.uploadFile(file, bucketName);
       }
     }
