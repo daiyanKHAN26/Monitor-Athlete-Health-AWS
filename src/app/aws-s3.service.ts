@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,11 @@ export class AwsS3Service {
 
   constructor() {
     this.s3Client = new S3Client({
-      region: 'us-east-1'
+      region: environment.AWS_REGION,
+      credentials: {
+        accessKeyId: environment.AWS_ACCESS_KEY_ID,
+        secretAccessKey: environment.AWS_SECRET_ACCESS_KEY,
+      },
     });
   }
 
