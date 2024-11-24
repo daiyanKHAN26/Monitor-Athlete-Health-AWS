@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./file-upload.component.css'],
 })
 export class FileUploadComponent {
-  fileTypes = ['Calories', 'Distance', 'Exercise', 'Heart Rate', 'Wellness'];
+  fileTypes = ['Calories', 'Distance', 'Exercise', 'Heart Rate', 'Wellness', 'Time in Heart Rate Zones'];
   fieldNames = ['Player ID', 'Fatigue', 'Readiness', 'Soreness', 'Stress', 'Sleep Quality'];
 
   uploadedFiles: { [key: string]: File | null } = {};
@@ -55,13 +55,24 @@ export class FileUploadComponent {
       return;
     }
 
+    // Add effective_time_frame as ISO string
     data['effective_time_frame'] = new Date().toISOString();
+
+    // Add date in yyyy-mm-dd format
+    const currentDate = new Date();
+    const yyyy = currentDate.getFullYear();
+    const mm = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const dd = String(currentDate.getDate()).padStart(2, '0');
+    data['date'] = `${yyyy}-${mm}-${dd}`; // Add new date field
+
+    console.log('Prepared data to upload:', data);
 
     this.dynamoDBService.uploadToDynamoDB(data, 'wellness').subscribe(
       (response) => console.log('Data uploaded to DynamoDB:', response),
       (error) => console.error('Error uploading data:', error)
     );
   }
+
 
   invokeSageMaker() {
     this.sageMakerService.invokeSageMakerAPI().subscribe(
@@ -78,11 +89,11 @@ export class FileUploadComponent {
     }
 
     // Construct the effective_time_frame based on input
-    const effectiveTimeFrame = `${this.year}-${this.month.padStart(2, '0')}-${this.day.padStart(2, '0')}`;
+    const date = `${this.year}-${this.month.padStart(2, '0')}-${this.day.padStart(2, '0')}`;
 
-    console.log('Retrieving data for:', { playerId: this.playerId, effectiveTimeFrame });
+    console.log('Retrieving data for:', { playerId: this.playerId, date });
 
-    this.dynamoDBService.getDataFromDynamoDB('wellness', this.playerId, effectiveTimeFrame).subscribe(
+    this.dynamoDBService.getDataFromDynamoDB(this.playerId, date).subscribe(
       (response) => {
         console.log('Data retrieved from DynamoDB:', response);
         this.retrievedData = response;

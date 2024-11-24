@@ -50,7 +50,48 @@
 
 <h3>Retrieved Data:</h3>
 <div *ngIf="retrievedData; else noData">
-  <pre>{{ retrievedData | json }}</pre> <!-- Display retrieved data -->
+  <table>
+    <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Player ID</td>
+      <td>{{ retrievedData.player_id }}</td>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td>{{ retrievedData.date }}</td>
+    </tr>
+    <tr>
+      <td>Effective Time Frame</td>
+      <td>{{ retrievedData.effective_time_frame }}</td>
+    </tr>
+    <tr>
+      <td>Fatigue</td>
+      <td>{{ retrievedData.fatigue }}</td>
+    </tr>
+    <tr>
+      <td>Readiness</td>
+      <td>{{ retrievedData.readiness }}</td>
+    </tr>
+    <tr>
+      <td>Soreness</td>
+      <td>{{ retrievedData.soreness }}</td>
+    </tr>
+    <tr>
+      <td>Sleep Quality</td>
+      <td>{{ retrievedData.sleep_quality }}</td>
+    </tr>
+    <tr>
+      <td>Stress</td>
+      <td>{{ retrievedData.stress }}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 <ng-template #noData>
   <p>No data retrieved.</p>
@@ -58,11 +99,12 @@
 
 
 
-<button (click)="invokeSageMaker()">Invoke SageMaker</button>
 
-<h3>SageMaker Response:</h3>
+<button (click)="invokeSageMaker()">Run Analytics</button>
+
+<h3>Player Insights:</h3>
 <div *ngIf="sageMakerResponse; else noResponse">
-  <pre>{{ sageMakerResponse }}</pre> <!-- Display response in preformatted style -->
+  <pre>{{ sageMakerResponse }}</pre>
 </div>
 <ng-template #noResponse>
   <p>Waiting for response.</p>

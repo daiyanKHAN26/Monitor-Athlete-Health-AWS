@@ -18,9 +18,9 @@ export class DynamoDBService {
   }
 
   // Method to retrieve data from DynamoDB
-  getDataFromDynamoDB(tableName: string, playerId: string, date: string): Observable<any> {
-    const params = { tableName, playerId, date }; // Prepare parameters
+  getDataFromDynamoDB(playerId: string, date: string): Observable<any> {
+    const params = { player_id: playerId, date }; // Use 'player_id' to match Lambda's expectation
     console.log('Retrieving data from DynamoDB with params:', params);
-    return this.http.post(`${this.apiUrl}/fetchtable`, params); // POST request
+    return this.http.post(`${this.apiUrl}/fetchtable`, params);
   }
 }
