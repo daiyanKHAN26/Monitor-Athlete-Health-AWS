@@ -25,6 +25,39 @@
   <button type="submit">Upload to DynamoDB</button>
 </form>
 
+<h2>Retrieve Player Data</h2>
+<form (submit)="getDataFromDynamoDB()">
+  <div>
+    <div>
+      <label>Player ID:</label>
+      <input type="text" [(ngModel)]="playerId" name="playerId" required />
+    </div>
+    <div>
+      <label>Year (yyyy):</label>
+      <input type="text" [(ngModel)]="year" name="year" required />
+    </div>
+    <div>
+      <label>Month (mm):</label>
+      <input type="text" [(ngModel)]="month" name="month" required />
+    </div>
+    <div>
+      <label>Day (dd):</label>
+      <input type="text" [(ngModel)]="day" name="day" required />
+    </div>
+  </div>
+  <button type="submit">Retrieve Data</button>
+</form>
+
+<h3>Retrieved Data:</h3>
+<div *ngIf="retrievedData; else noData">
+  <pre>{{ retrievedData | json }}</pre> <!-- Display retrieved data -->
+</div>
+<ng-template #noData>
+  <p>No data retrieved.</p>
+</ng-template>
+
+
+
 <button (click)="invokeSageMaker()">Invoke SageMaker</button>
 
 <h3>SageMaker Response:</h3>
