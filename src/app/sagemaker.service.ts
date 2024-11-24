@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SageMakerService {
-  private apiUrl = 'https://z5ullhqle6.execute-api.us-east-1.amazonaws.com/invoke-notebook';
+  private apiUrl = 'https://ny7ob9dzfc.execute-api.us-east-1.amazonaws.com/performanalytics';
 
   constructor(private http: HttpClient) {}
 

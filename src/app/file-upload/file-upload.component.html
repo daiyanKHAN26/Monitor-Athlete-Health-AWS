@@ -1,12 +1,36 @@
 <h2>Upload Athlete Data</h2>
-<form (submit)="onSubmit()">
+<form (submit)="submitS3()">
   <div class="upload-container">
     <div *ngFor="let fileType of fileTypes">
       <label>{{ fileType }}:</label>
       <input type="file" (change)="onFileChange($event, fileType)" />
     </div>
   </div>
-  <button type="submit">Upload Data</button>
+  <button type="submit">Upload to S3</button>
+</form>
+
+<h2>Manual Data Entry</h2>
+<form (submit)="submitDynamo()">
+  <div class="upload-container">
+    <div *ngFor="let fieldName of fieldNames; let i = index">
+      <label>{{ fieldName }}:</label>
+      <input
+        type="text"
+        [(ngModel)]="manualData[i].value"
+        [name]="'field' + i"
+        [required]="fieldName === 'Player ID'"
+      />
+    </div>
+  </div>
+  <button type="submit">Upload to DynamoDB</button>
 </form>
 
 <button (click)="invokeSageMaker()">Invoke SageMaker</button>
+
+<h3>SageMaker Response:</h3>
+<div *ngIf="sageMakerResponse; else noResponse">
+  <pre>{{ sageMakerResponse }}</pre> <!-- Display response in preformatted style -->
+</div>
+<ng-template #noResponse>
+  <p>Waiting for response.</p>
+</ng-template>
