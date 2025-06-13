@@ -1,4 +1,4 @@
-# FitbitDataUploaderV2
+# Athlete Health Metric Analysis using AWS
 
 ## Scalable Solutions for Athlete Health Data
 ### Using AWS to Track and Monitor Athlete Player Metrics
